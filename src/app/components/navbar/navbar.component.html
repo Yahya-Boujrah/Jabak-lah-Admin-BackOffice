@@ -1,0 +1,51 @@
+<nav class="main-menu">
+<ul>
+    <li>
+    <a (click)="home()" >
+        <fa-icon class="icon"[icon]="faHouse"></fa-icon>
+        <span class="nav-text">Home</span>
+    </a>
+
+    </li>
+    <li class="has-subnav">
+    <a (click)="agents()" >
+        <fa-icon class="icon"[icon]="faUserGroup"></fa-icon>
+        <span class="nav-text">Agents</span>
+    </a>
+
+    </li>
+    <li class="has-subnav">
+    <a (click)="clients()">
+        <fa-icon class="icon"[icon]="faPeopleGroup"></fa-icon>
+        <span class="nav-text">Clients</span>
+    </a>
+
+    </li>
+    <li class="has-subnav">
+    <a (click)="info()">
+        <fa-icon class="icon"[icon]="faBook"></fa-icon>
+        <span class="nav-text">Infos</span>
+    </a>
+    </li>
+    <li class="has-subnav">
+        <a (click)="changePwd()">
+            <fa-icon class="icon"[icon]="faLock"></fa-icon>
+            <span class="nav-text">Change Password</span>
+        </a>
+    
+        </li>   
+ 
+</ul>
+
+<ul class="logout">
+    <li>
+    <a (click)="logout()">
+        <fa-icon class="icon"[icon]="faRightFromBracket"></fa-icon>
+       
+        <span class="nav-text">
+        Logout
+        </span>
+    </a>
+    </li>
+</ul>
+</nav>

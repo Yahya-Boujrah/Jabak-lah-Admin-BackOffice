@@ -1,0 +1,44 @@
+<div class="container infos">
+    <h1>
+       Admin information
+    </h1>
+    <div class="infos-body row">
+        <div class=" col">
+            <div class="labelInfo">
+                Last Name
+            </div>
+            <div class="valeurInfo">
+                {{admin?.lastName}}</div>
+            <div class="labelInfo">
+                First Name
+            </div>
+            <div class="valeurInfo">
+                {{admin?.firstName}} </div>
+            <div class="labelInfo">
+                CIN
+            </div>
+            <div class="valeurInfo">
+                {{admin?.cin}} </div>
+            <div class="labelInfo">
+                Username
+            </div>
+            <div class="valeurInfo">
+                {{admin?.username!.split(":")[0]}} </div>
+        </div>    
+        <div class=" col">
+            <div class="labelInfo">
+                Email
+            </div>
+            <div class="valeurInfo">
+                {{admin?.email}}
+            </div>
+            <div class="labelInfo">
+                Phone number
+            </div>
+            <div class="valeurInfo">
+                {{admin?.phone}}
+            </div>  
+        </div>
+    </div>
+
+</div>

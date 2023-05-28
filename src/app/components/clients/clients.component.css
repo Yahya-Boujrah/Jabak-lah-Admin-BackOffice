@@ -1,0 +1,35 @@
+.subcontainer{
+    width: 70%;
+    margin: 40px auto 10px;
+}
+
+.table {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0,0,0,0.1);
+    padding: 15px;
+    margin: 4px 0;
+}
+.table-agents{
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.26);
+}
+
+.item {
+    width: 30%;
+    font-weight: bold;
+    font-size: 10pt;
+}
+.item1{
+    width:15%;
+    font-size: 10pt;
+}
+
+.update:hover{
+    color: #ffc107 !important;
+    transition: all 0.3s;
+}
+
+.delete:hover{
+    color: red !important;
+    transition: all 0.3s;
+}

@@ -1,0 +1,335 @@
+<div class="container subcontainer" id="main-container">
+    <h1 align="center">
+        Our Agents
+    </h1>
+    <button type="button" class="btn btn-secondary" (click)="onOpenModal(null, 'add')">
+        Add Agent
+    </button>
+
+    <div class="table-agents">
+        <div class="table" style="background-color:rgba(0,0,0,0.25)">
+            <div class="item1">
+                <b>Id</b>
+            </div>
+            <div class="item">
+                <b>Username</b>
+            </div>
+            <div class="item">
+                <b>Name</b>
+            </div>
+            <div class="item">
+                <b>Email</b>
+            </div>
+            <div class="item">
+                <b>Created At</b>
+            </div>
+            <div class="item1">
+                <b>Reset</b>
+            </div>
+            <div class="item1">
+                <b>Update</b>
+            </div>
+            <div class="item1">
+                <b>Delete</b>
+            </div>
+        </div>
+        <div class="table" *ngFor="let agent of agentResponse?.data?.agents">
+            <div class="item1">{{agent.id}}</div>
+            <div class="item">{{agent.username}}</div>
+            <div class="item">{{agent.firstName}} {{agent.lastName}}</div>
+            <div class="item" style="font-weight:normal">{{agent.email}}</div>
+            <div class="item" style="font-weight:bold">{{agent.createdAt?.toLocaleString()!.split("T")[0]}}</div>
+            <div class="item1"><a (click)="onOpenModal(agent,'reset')"><fa-icon id="reset"
+                        [icon]="faRotateLeft"></fa-icon></a></div>
+            <div class="item1"><a (click)="onOpenModal(agent,'edit')"><fa-icon id="update"
+                        [icon]="faPenToSquare"></fa-icon></a></div>
+
+            <div class="item1"><a (click)="onOpenModal(agent,'delete')"><fa-icon id="delete"
+                        [icon]="faTrash"></fa-icon></a></div>
+
+        </div>
+    </div>
+    <!-- add form modal -->
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a new Agent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container mt-3 ">
+                        <form #addForm="ngForm">
+                            <div class="card-header">
+                                <h3 class="text-dark">Informations personnelles</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Last Name" class="form-control" ngModel
+                                            name="lastName" required>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="First Name" class="form-control" ngModel
+                                            name="firstName" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Username" class="form-control" ngModel
+                                            name="username" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Address" class="form-control" ngModel
+                                            name="address" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="date" placeholder="Birth Date" class="form-control" ngModel
+                                            name="birthDate" required>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Identity Card Number" class="form-control"
+                                            ngModel name="cin" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="email" placeholder="Email" class="form-control" ngModel
+                                            name="email" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Confirm Email" class="form-control" ngModel
+                                            name="confirmEmail" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <div class="col input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">+212</span>
+                                            <input type="number" placeholder="Phone Number" class="form-control" ngModel
+                                                name="phone" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Trade Register Number" class="form-control"
+                                            ngModel name="immatricule" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col-6">
+                                        <input type="text" placeholder="Patent Number" class="form-control" ngModel
+                                            name="patent_number" required>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header mt-5">
+                                <h3 class="text-dark">Pièce joites</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <label for="identity_card_recto">Identity card recto</label>
+                                        <input type="file" class="form-control" ngModel name="identity_card_recto">
+
+                                    </div>
+                                    <div class="col">
+                                        <label for="identity_card_verso">Identity card verso</label>
+                                        <input type="file" class="form-control" ngModel name="identity_card_verso">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <button class="col-4 btn btn-warning m-3" (click)="addAgent(addForm)"
+                                            [disabled]="addForm.invalid" data-bs-dismiss="modal">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- update form modal -->
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-light " style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upate Agent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container mt-3 ">
+                        <form #updateForm="ngForm">
+                            <div class="card-header">
+                                <h3 class="text-dark">Informations personnelles</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="">
+                                        <input type="hidden" class="form-control" name="id" ngModel="{{editAgent?.id}}">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Last Name" class="form-control" name="lastName"
+                                            ngModel="{{editAgent?.lastName}}">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="First Name" class="form-control"
+                                            name="firstName" ngModel="{{editAgent?.firstName}}">
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Username" class="form-control" name="username"
+                                            ngModel="{{editAgent?.username}}">
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Address" class="form-control" name="address"
+                                            ngModel="{{editAgent?.address}}">
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="date" placeholder="Birth Date" class="form-control"
+                                            name="birthDate" ngModel="{{editAgent?.birthDate}}">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Identity Card Number " class="form-control"
+                                            name="cin" ngModel="{{editAgent?.cin}}">
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="email" placeholder="Email" class="form-control" name="email"
+                                            ngModel="{{editAgent?.email}}">
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Confirm Email" class="form-control"
+                                            name="confirmEmail" ngModel="{{editAgent?.email}}">
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <div class="col input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">+212</span>
+                                            <input type="number" placeholder="Phone Number" class="form-control"
+                                                name="phone" ngModel="{{editAgent?.phone}}">
+                                        </div>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="Trade Register Number" class="form-control"
+                                            name="immatricule" ngModel="{{editAgent?.immatricule}}">
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col-6">
+                                        <input type="text" placeholder="Patent Number" class="form-control"
+                                            name="patent_number" ngModel="{{editAgent?.patentNumber}}">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header mt-5">
+                                <h3 class="text-dark">Pièce joites</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <label for="identity_card_recto">Identity card recto</label>
+                                        <input type="file" class="form-control" name="identity_card_recto"
+                                            ngModel="{{editAgent?.identityCardRecto}}">
+
+                                    </div>
+                                    <div class="col">
+                                        <label for="identity_card_verso">Identity card verso</label>
+                                        <input type="file" class="form-control" name="identity_card_verso"
+                                            ngModel="{{editAgent?.identityCardVerso}}">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <button class="col-4 btn btn-warning m-3"
+                                            (click)="updateAgent(updateForm.value)"
+                                            data-bs-dismiss="modal">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Modal -->
+    <div class="modal fade" id="resetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to reset Password for <strong>{{resetAgent?.username}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" (click)="reset(resetAgent)"
+                        data-bs-dismiss="modal">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Agent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to delete Agent <strong>{{deleteAgent?.username}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(deleteAgent)"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+  h1,h2,h3 {
+      margin: 0;
+  }
+  p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 24px;
+  }
+  a {
+      color: #212121d8;
+      text-decoration: none;
+  }
+  a:hover {
+    color: #1f1d1dab;
+  }
+  .teamWrapper {
+      margin-top: 50px;
+  }
+  .container {
+    max-width: 1160px;
+    margin: auto;
+  }
+  .teamGrid {
+      display: flex;
+      gap: 3% ;
+      margin-top: 100px;
+  }
+  .admin-card{
+    flex: 1;
+  }
+  @media (max-width: 1300px){
+    .teamGrid{
+        flex-direction: column;
+        gap: 8rem;
+        align-items: center;
+
+    }
+    .admin-card{
+        width: 50%;
+      }
+  }
+  .avatar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -80px;
+      text-align: center;
+  }
+  .teamcolinner {
+      position: relative;
+  }
+  .avatar > img {
+      width: 150px;
+      margin: auto;
+      border-radius: 50%;
+      border: 1px solid rgb(170 170 173/ 1);
+      box-shadow: 0px 3px 10px 3px rgb(170 170 173 / 0.5);
+  }
+  .teamcolinner {
+      position: relative;
+      border: 1px dashed #ddd;
+      min-height: 100px;
+      background: #fff;
+      z-index: 9;
+  }
+  .teamcol {
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      position: relative;
+      transition: transform 1s ease-in-out;
+  }
+  .teamcol:hover {
+      transform: translateY(-30px);
+      box-shadow: 0px 3px 10px 3px rgb(170 170 173 / 0.5);
+      transition: transform 0.5s ease-in-out;
+  }
+  .teamcol:before {
+      content: "";
+      width: 50%;
+      height: 50%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: -webkit-linear-gradient(#ffbf00, #ffa000);
+      border-top-right-radius: 10px;
+      transition: width 1s ease-in-out;
+  }
+  .teamcol:after {
+      content: "";
+      width: 50%;
+      height: 50%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background: -webkit-linear-gradient(#666, #666);
+      border-bottom-left-radius: 10px;
+      transition: width 1s ease-in-out;
+  }
+  .teamcol:hover::before, .teamcol:hover::after {
+      width: 100%;
+      transition: width 1s ease-in-out;
+  }
+  .member-name {
+      margin-top: 80px;
+  }
+  .member-info {
+      padding: 10px 20px;
+  }

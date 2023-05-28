@@ -1,0 +1,29 @@
+<div class="teamWrapper">
+  <div class="container">
+      <h1 align="center">Our Team</h1>
+      <p align="center">Something about our team</p>
+      <div class="teamGrid">
+          <div class="colmun admin-card" *ngFor="let admin of adminResponse?.data?.admins">
+              <div class="teamcol">
+                  <div class="teamcolinner">
+                      <div class="avatar"><img src="../../assets/admin.png"
+                              alt="Member"></div>
+                      <div class="member-name">
+                          <h2 align="center">{{admin.firstName}} {{admin.lastName}}</h2>
+                      </div>
+                      <div class="member-info">
+                          <p align="center"><a href="tel:+{{admin.phone}}">{{admin.phone}}</a></p>
+                      </div>
+                      <div class="member-info m-1">
+                        <p align="center">{{admin.role}}</p>
+                    </div>
+                      <div class="member-mail mb-4">
+                          <p align="center"> <a >{{admin.email}}</a> </p>
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>

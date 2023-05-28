@@ -1,0 +1,109 @@
+  .form {
+    background: #FFFFFF;
+    width: 45%;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.26);
+    box-sizing: border-box;
+    margin: 100px auto 10px;
+    overflow: hidden;
+    padding: 0;
+    border-left: 1rem solid #1f1d1db7;
+  }
+
+  @media (max-width: 1200px) {
+    .form{
+      width: 60%; 
+    }
+  }
+  @media (max-width: 600px){
+    .form{
+      width: 80px;
+    }
+  }
+  .form-header {
+    margin: 0 0 40px;
+    }
+    .form-header h1 {
+    padding: 4px 0;
+    color: #1f1d1dab;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    }
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+  }
+  .form-group:last-child {
+    margin: 0;
+  }
+  .form-group label {
+    display: block;
+    margin: 0 0 10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .form-group input {
+    outline: none;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+  }
+  .form-group input:focus {
+    color: rgba(0, 0, 0, 0.8);
+  }
+  .form-group button {
+    outline: none;
+    background: #212121d8;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .form-group button:hover{
+    background: #1f1d1dab;
+  }
+  .form-group .form-remember {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .form-group .form-remember input[type=checkbox] {
+    display: inline-block;
+    width: auto;
+    margin: 0 10px 0 0;
+  }
+  .form-group .form-recovery {
+    color: #212121;
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .form-panel {
+    padding: 60px;
+    box-sizing: border-box;
+  }

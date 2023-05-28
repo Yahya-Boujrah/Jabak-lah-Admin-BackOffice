@@ -1,0 +1,254 @@
+<div class="container subcontainer" id="main-container">
+    <h1 align="center">
+        Our Clients
+    </h1>
+    <button type="button" class="btn btn-secondary" (click)="onOpenModal(null, 'add')">
+        Add Client
+    </button>
+
+    <div class="table-agents">
+        <div class="table" style="background-color:rgba(0,0,0,0.25)">
+            <div class="item1">
+                <b>Id</b>
+            </div>
+            <div class="item">
+                <b>Name</b>
+            </div>
+            <div class="item">
+                <b>Phone Number</b>
+            </div>
+            <div class="item">
+                <b>Balance</b>
+            </div>
+            <div class="item">
+                <b>Created At</b>
+            </div>
+            <div class="item1">
+                <b>Reset</b>
+            </div>
+            <div class="item1">
+                <b>Update</b>
+            </div>
+            <div class="item1">
+                <b>Delete</b>
+            </div>
+        </div>
+        <div class="table" *ngFor="let client of clientResponse?.data?.clients ">
+            <div class="item1">{{client.id}}</div>
+            <div class="item">{{client.firstName}} {{client.lastName}}</div>
+            <div class="item" style="font-weight:normal">{{client.phone}}</div>
+            <div class="item">{{client.balance}} DH</div>
+            <div class="item" style="font-weight:bold">{{ client.createdAt?.toLocaleString()!.split("T")[0] }}</div>
+            <div class="item1"><a (click)="onOpenModal(client,'reset')"><fa-icon class="reset"
+                [icon]="faRotateLeft"></fa-icon></a></div>
+            <div class="item1"><a (click)="onOpenModal(client,'edit')"><fa-icon class="update"
+                        [icon]="faPenToSquare"></fa-icon></a></div>
+            <div class="item1"><a (click)="onOpenModal(client,'delete')"><fa-icon class="delete"
+                        [icon]="faTrash"></fa-icon></a></div>
+
+        </div>
+    </div>
+    <!-- add form modal -->
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a new Client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container mt-3">
+                        <form #addForm="ngForm">
+                            <div class="card-header">
+                                <h3 class="text-dark">Open a new payment account</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <select class="form-select" ngModel name="accountType" required>
+                                            <option value="Plafond_200DH" selected>Hssab 1 - Plafond : 200 DH</option>
+                                            <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
+                                            <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Last Name" class="form-control" ngModel name="lastName"
+                                            required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="First Name " class="form-control" ngModel name="firstName"
+                                            required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Username" class="form-control" ngModel name="username"
+                                            required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="CIN" class="form-control" ngModel name="cin"
+                                            required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <div class="col input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">+212</span>
+                                            <input type="text" placeholder="Phone Number" class="form-control"
+                                                ngModel name="phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="email" placeholder="Email" class="form-control" ngModel name="email"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="col-4 btn btn-warning m-4" 
+                                            (click)="addClient(addForm)" [disabled]="addForm.invalid"  data-bs-dismiss="modal">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- update form modal -->
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-light " style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upate Client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container mt-3">
+                        <form #updateForm="ngForm">
+                            <div class="card-header">
+                                <h3 class="text-dark">Update payment account</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="">
+                                    <input type="hidden"  class="form-control"  name="id" ngModel="{{editClient?.id}}"
+                                    >
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <select class="form-select" ngModel="{{editClient?.accountType}}" name="accountType" required>
+                                            <option value="Plafond_200DH" selected>Hssab 1 - Plafond : 200 DH</option>
+                                            <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
+                                            <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Last Name" class="form-control" ngModel="{{editClient?.lastName}}" name="lastName"
+                                            required>
+                    
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="First Name " class="form-control" ngModel="{{editClient?.firstName}}" name="firstName"
+                                            required>
+                    
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Username" class="form-control" ngModel="{{editClient?.username}}" name="username"
+                                            required>
+                    
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="CIN" class="form-control" ngModel="{{editClient?.cin}}" name="cin"
+                                            required>
+                    
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <div class="col input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">+212</span>
+                                            <input type="text" placeholder="Phone Number" class="form-control"
+                                                ngModel="{{editClient?.phone}}" name="phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="email" placeholder="Email" class="form-control" ngModel="{{editClient?.email}}" name="email"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="col-4 btn btn-warning m-4" 
+                                            (click)="updateClient(updateForm.value)" [disabled]="updateForm.invalid"  data-bs-dismiss="modal">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reset Modal -->
+    <div class="modal fade" id="resetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to reset Password for <strong>{{resetClient?.username}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" (click)="reset(resetClient)"
+                        data-bs-dismiss="modal">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Agent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to delete Client <strong>{{deleteClient?.lastName}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(deleteClient)"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
