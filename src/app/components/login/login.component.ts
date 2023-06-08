@@ -32,10 +32,11 @@ export class LoginComponent {
 
       } else {
         alert("Authentication failed");
+        form.reset();
       }
     }, error => {
       this.toast.error({ detail: 'Error', summary: 'Something gone wrong', position: 'tr', duration: 3000 });
-
+      form.reset();
     }
     )
   }
