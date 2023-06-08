@@ -33,3 +33,12 @@
     color: red !important;
     transition: all 0.3s;
 }
+
+.header{
+    display: flex;
+    align-items: start;
+    justify-content:space-between;
+    margin-bottom: 1rem;
+}
+
+

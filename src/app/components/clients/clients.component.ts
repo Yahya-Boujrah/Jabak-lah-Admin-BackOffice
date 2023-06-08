@@ -106,6 +106,14 @@ export class ClientsComponent {
     })
   }
 
+  
+  doSearch(value: string) {
+    console.log(`value=${value}`);
+    this.clientService.filterClients$(value, this.dataSubject.value).subscribe(response =>{
+      this.clientResponse = response;
+    })
+  }
+
   onOpenModal(client: any, mode: string){
 
     const container = document.getElementById('main-container');

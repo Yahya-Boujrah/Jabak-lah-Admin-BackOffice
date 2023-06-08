@@ -2,10 +2,22 @@
     <h1 align="center">
         Our Agents
     </h1>
-    <button type="button" class="btn btn-secondary" (click)="onOpenModal(null, 'add')">
-        Add Agent
-    </button>
 
+    <div class="header">
+        <div>
+            <button type="button" class="btn btn-secondary" (click)="onOpenModal(null, 'add')">
+                + Add Agent
+            </button>
+        </div>
+
+        <form class="d-flex">
+            <input #myInput class="form-control me-1" type="search" placeholder="Search" aria-label="Search"
+            (keyup.enter)="doSearch(myInput.value)">
+            <button class="btn btn-secondary" type="submit" (click)="doSearch(myInput.value)">
+               Search
+            </button>
+        </form>
+    </div>
     <div class="table-agents">
         <div class="table" style="background-color:rgba(0,0,0,0.25)">
             <div class="item1">

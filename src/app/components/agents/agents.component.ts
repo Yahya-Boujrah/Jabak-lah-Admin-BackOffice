@@ -106,6 +106,13 @@ export class AgentsComponent implements OnInit {
     });
   }
 
+  doSearch(value: string) {
+    console.log(`value=${value}`);
+    this.agentService.filterAgents$(value, this.dataSubject.value).subscribe(response =>{
+      this.agentResponse = response;
+    })
+  }
+
   onOpenModal(agent: any, mode: string) {
 
     const container = document.getElementById('main-container');

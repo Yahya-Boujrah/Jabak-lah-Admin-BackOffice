@@ -45,29 +45,36 @@ export class AgentService {
     })
   );
 
-//   filterAgents$ = (type: string , response : CustomResponse) => <Observable<CustomResponse>>
-//     new Observable<CustomResponse>(
-//       subscriber => {
-//         console.log(response);
-//         subscriber.next(
-//           type === 'All' ? {...response, message: `demandes filtered by ${type} type`} :
-//             {
-//               ...response,
-//               message: (response.data.demandes as Demande[]).filter(demande => demande.type === type).length > 0 ?
-//               `demandes filtered by ${type} type` : `No demandes of ${type} found`,
-//               data:{ demandes : (response.data.demandes as Demande[]).filter(demande => demande.type === type)}
-//             }
-//         );
-//         subscriber.complete();
-//       }
-//     )
-//   .pipe(
-//     tap(console.log),
-//     catchError(() => {
-//       return of('error')
-//     })
-//   );
 
+  filterAgents$ = (name: string, response: CustomResponse) => <Observable<CustomResponse>>
+    new Observable<CustomResponse>(
+      subscriber => {
+        console.log(response);
+        const filteredAgents = (response.data.agents as Agent[]).filter(agent =>
+          agent?.lastName!.toLowerCase().includes(name.toLowerCase()) ||
+          agent?.firstName!.toLowerCase().includes(name.toLowerCase()) ||
+          agent?.email!.toLowerCase().includes(name.toLowerCase()) ||
+          agent?.username!.toLowerCase().includes(name.toLowerCase())
+        );
+        const filteredResponse: CustomResponse = {
+          ...response,
+          message: filteredAgents.length > 0
+            ? `clients filtered by name "${name}"`
+            : `No clients found with name "${name}"`,
+          data: { agents: filteredAgents },
+        };
+
+        subscriber.next(filteredResponse);
+        subscriber.complete();
+
+      }
+    )
+      .pipe(
+        tap(console.log),
+        catchError(() => {
+          return of('error')
+        })
+      );
   resetPassword$ = (agentId: number) => <Observable<CustomResponse>>
   this.http.put<CustomResponse>(`${this.apiUrl}/resetPasswordAgent/${agentId}`, null)
   .pipe(

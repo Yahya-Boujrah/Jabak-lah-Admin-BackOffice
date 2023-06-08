@@ -2,9 +2,22 @@
     <h1 align="center">
         Our Clients
     </h1>
-    <button type="button" class="btn btn-secondary" (click)="onOpenModal(null, 'add')">
-        Add Client
-    </button>
+
+    <div class="header">
+        <div>
+            <button type="button" class="btn btn-secondary" (click)="onOpenModal(null, 'add')">
+                + Add Client
+            </button>
+        </div>
+
+        <form class="d-flex">
+            <input #myInput class="form-control me-1" type="search" placeholder="Search" aria-label="Search"
+            (keyup.enter)="doSearch(myInput.value)">
+            <button class="btn btn-secondary" type="submit" (click)="doSearch(myInput.value)">
+               Search
+            </button>
+        </form>
+    </div>
 
     <div class="table-agents">
         <div class="table" style="background-color:rgba(0,0,0,0.25)">
@@ -40,7 +53,7 @@
             <div class="item">{{client.balance}} DH</div>
             <div class="item" style="font-weight:bold">{{ client.createdAt?.toLocaleString()!.split("T")[0] }}</div>
             <div class="item1"><a (click)="onOpenModal(client,'reset')"><fa-icon class="reset"
-                [icon]="faRotateLeft"></fa-icon></a></div>
+                        [icon]="faRotateLeft"></fa-icon></a></div>
             <div class="item1"><a (click)="onOpenModal(client,'edit')"><fa-icon class="update"
                         [icon]="faPenToSquare"></fa-icon></a></div>
             <div class="item1"><a (click)="onOpenModal(client,'delete')"><fa-icon class="delete"
@@ -68,7 +81,7 @@
                                     <div class="col">
                                         <select class="form-select" ngModel name="accountType" required>
                                             <option value="" disabled selected hidden>Account Type...</option>
-                                            <option value="Plafond_200DH" >Hssab 1 - Plafond : 200 DH</option>
+                                            <option value="Plafond_200DH">Hssab 1 - Plafond : 200 DH</option>
                                             <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
                                             <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
                                         </select>
@@ -76,20 +89,20 @@
                                 </div>
                                 <div class="row m-1 g-3">
                                     <div class="col">
-                                        <input type="text" placeholder="Last Name" class="form-control" ngModel name="lastName"
-                                            required>
+                                        <input type="text" placeholder="Last Name" class="form-control" ngModel
+                                            name="lastName" required>
 
                                     </div>
                                     <div class="col">
-                                        <input type="text" placeholder="First Name " class="form-control" ngModel name="firstName"
-                                            required>
+                                        <input type="text" placeholder="First Name " class="form-control" ngModel
+                                            name="firstName" required>
 
                                     </div>
                                 </div>
                                 <div class="row m-1 g-3">
                                     <div class="col">
-                                        <input type="text" placeholder="Username" class="form-control" ngModel name="username"
-                                            required>
+                                        <input type="text" placeholder="Username" class="form-control" ngModel
+                                            name="username" required>
 
                                     </div>
                                     <div class="col">
@@ -102,21 +115,22 @@
                                     <div class="col">
                                         <div class="col input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">+212</span>
-                                            <input type="text" placeholder="Phone Number" class="form-control"
-                                                ngModel name="phone" required>
+                                            <input type="text" placeholder="Phone Number" class="form-control" ngModel
+                                                name="phone" required>
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <input type="email" placeholder="Email" class="form-control" ngModel name="email"
-                                            required>
+                                        <input type="email" placeholder="Email" class="form-control" ngModel
+                                            name="email" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <div class="row m-1 g-3">
                                     <div class="col-12">
-                                        <button type="submit" class="col-4 btn btn-warning m-4" 
-                                            (click)="addClient(addForm)" [disabled]="addForm.invalid"  data-bs-dismiss="modal">Add</button>
+                                        <button type="submit" class="col-4 btn btn-secondary m-4"
+                                            (click)="addClient(addForm)" [disabled]="addForm.invalid"
+                                            data-bs-dismiss="modal">Add</button>
                                     </div>
                                 </div>
                             </div>
@@ -143,13 +157,14 @@
                             </div>
                             <div class="card-body">
                                 <div class="">
-                                    <input type="hidden"  class="form-control"  name="id" ngModel="{{editClient?.id}}"
-                                    >
+                                    <input type="hidden" class="form-control" name="id" ngModel="{{editClient?.id}}">
                                 </div>
                                 <div class="row m-1 g-3">
                                     <div class="col">
-                                        <select class="form-select" ngModel="{{editClient?.accountType}}" name="accountType" required>
-                                            <option value="" disabled selected hidden>{{editClient?.accountType}}</option>
+                                        <select class="form-select" ngModel="{{editClient?.accountType}}"
+                                            name="accountType" required>
+                                            <option value="" disabled selected hidden>{{editClient?.accountType}}
+                                            </option>
                                             <option value="Plafond_200DH" selected>Hssab 1 - Plafond : 200 DH</option>
                                             <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
                                             <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
@@ -158,26 +173,26 @@
                                 </div>
                                 <div class="row m-1 g-3">
                                     <div class="col">
-                                        <input type="text" placeholder="Last Name" class="form-control" ngModel="{{editClient?.lastName}}" name="lastName"
-                                            required>
-                    
+                                        <input type="text" placeholder="Last Name" class="form-control"
+                                            ngModel="{{editClient?.lastName}}" name="lastName" required>
+
                                     </div>
                                     <div class="col">
-                                        <input type="text" placeholder="First Name " class="form-control" ngModel="{{editClient?.firstName}}" name="firstName"
-                                            required>
-                    
+                                        <input type="text" placeholder="First Name " class="form-control"
+                                            ngModel="{{editClient?.firstName}}" name="firstName" required>
+
                                     </div>
                                 </div>
                                 <div class="row m-1 g-3">
                                     <div class="col">
-                                        <input type="text" placeholder="Username" class="form-control" ngModel="{{editClient?.username}}" name="username"
-                                            required>
-                    
+                                        <input type="text" placeholder="Username" class="form-control"
+                                            ngModel="{{editClient?.username}}" name="username" required>
+
                                     </div>
                                     <div class="col">
-                                        <input type="text" placeholder="CIN" class="form-control" ngModel="{{editClient?.cin}}" name="cin"
-                                            required>
-                    
+                                        <input type="text" placeholder="CIN" class="form-control"
+                                            ngModel="{{editClient?.cin}}" name="cin" required>
+
                                     </div>
                                 </div>
                                 <div class="row m-1 g-3">
@@ -189,16 +204,17 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <input type="email" placeholder="Email" class="form-control" ngModel="{{editClient?.email}}" name="email"
-                                            required>
+                                        <input type="email" placeholder="Email" class="form-control"
+                                            ngModel="{{editClient?.email}}" name="email" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <div class="row m-1 g-3">
                                     <div class="col-12">
-                                        <button type="submit" class="col-4 btn btn-warning m-4" 
-                                            (click)="updateClient(updateForm.value)" [disabled]="updateForm.invalid"  data-bs-dismiss="modal">Update</button>
+                                        <button type="submit" class="col-4 btn btn-warning m-4"
+                                            (click)="updateClient(updateForm.value)" [disabled]="updateForm.invalid"
+                                            data-bs-dismiss="modal">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +224,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Reset Modal -->
     <div class="modal fade" id="resetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         aria-hidden="true">
