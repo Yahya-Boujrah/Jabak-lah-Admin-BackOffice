@@ -14,7 +14,7 @@ const httpOptions = {
     providedIn: 'root'
   })
 export class AgentService {
-  private readonly apiUrl = 'http://localhost:8080/api/admin';  
+  private readonly apiUrl = 'https://jabak-lah-app.herokuapp.com/api/admin';  
 
   constructor(private http: HttpClient) {}
 
@@ -75,6 +75,7 @@ export class AgentService {
           return of('error')
         })
       );
+      
   resetPassword$ = (agentId: number) => <Observable<CustomResponse>>
   this.http.put<CustomResponse>(`${this.apiUrl}/resetPasswordAgent/${agentId}`, null)
   .pipe(
