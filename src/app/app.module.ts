@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
+import {NgToastModule} from 'ng-angular-popup';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -35,7 +37,8 @@ import { AuthInterceptorService } from './services/Auth-interceptor.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgToastModule
   ],
   providers: [{provide : HTTP_INTERCEPTORS, useClass : AuthInterceptorService, multi : true}],
   bootstrap: [AppComponent]

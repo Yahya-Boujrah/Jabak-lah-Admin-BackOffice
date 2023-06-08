@@ -67,7 +67,8 @@
                                 <div class="row m-1 g-3">
                                     <div class="col">
                                         <select class="form-select" ngModel name="accountType" required>
-                                            <option value="Plafond_200DH" selected>Hssab 1 - Plafond : 200 DH</option>
+                                            <option value="" disabled selected hidden>Account Type...</option>
+                                            <option value="Plafond_200DH" >Hssab 1 - Plafond : 200 DH</option>
                                             <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
                                             <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
                                         </select>
@@ -148,6 +149,7 @@
                                 <div class="row m-1 g-3">
                                     <div class="col">
                                         <select class="form-select" ngModel="{{editClient?.accountType}}" name="accountType" required>
+                                            <option value="" disabled selected hidden>{{editClient?.accountType}}</option>
                                             <option value="Plafond_200DH" selected>Hssab 1 - Plafond : 200 DH</option>
                                             <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
                                             <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>

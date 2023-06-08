@@ -7,6 +7,9 @@ import { Agent } from 'src/app/interfaces/Agent.interface';
 import { CustomResponse } from 'src/app/interfaces/Custom-response';
 import { AgentService } from 'src/app/services/Agent.service';
 
+import { NgToastService } from 'ng-angular-popup';
+
+
 
 @Component({
   selector: 'app-agents',
@@ -25,7 +28,7 @@ export class AgentsComponent implements OnInit {
   agentResponse!: CustomResponse;
   public dataSubject = new BehaviorSubject<any>(null);
 
-  constructor(private agentService: AgentService) { }
+  constructor(private agentService: AgentService, private toast : NgToastService) { }
 
   ngOnInit(): void {
     this.agentService.agents$.subscribe(response => {
@@ -43,10 +46,11 @@ export class AgentsComponent implements OnInit {
         { ...response, data: { agents: [response.data.agent, ...this.dataSubject.value.data.agents] } }
       )
       this.agentResponse = this.dataSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Agent added', position: 'tr', duration: 2500 });
+
     });
     addForm.reset();
   }
-
 
   delete(agent: Agent): void {
     console.log(agent.username)
@@ -58,6 +62,8 @@ export class AgentsComponent implements OnInit {
         }
       )
       this.agentResponse = this.dataSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Agent deleted', position: 'tr', duration: 2500 });
+
     })
   }
   updateAgent(agent: Agent) {
@@ -81,18 +87,23 @@ export class AgentsComponent implements OnInit {
           });
   
           this.agentResponse = this.dataSubject.value;
+          this.toast.success({ detail: 'Success', summary: 'Agent updated', position: 'tr', duration: 2500 });
+
         } else {
           console.error('Invalid response or missing agent data.');
         }
       },
       error => {
-        console.error('Failed to update agent:', error);
+        this.toast.error({ detail: 'Error', summary: 'Something gone wrong', position: 'tr', duration: 2500 });
       }
     );
   }
 
   reset(agent: Agent) {
-    this.agentService.resetPassword$(agent.id as number).subscribe();
+    this.agentService.resetPassword$(agent.id as number).subscribe(response =>{
+      this.toast.info({ detail: 'Info', summary: 'password reset', position: 'tr', duration: 3000 });
+
+    });
   }
 
   onOpenModal(agent: any, mode: string) {

@@ -6,6 +6,9 @@ import { Client } from 'src/app/interfaces/Client.interface';
 import { CustomResponse } from 'src/app/interfaces/Custom-response';
 import { ClientService } from 'src/app/services/Client.service';
 
+import { NgToastService } from 'ng-angular-popup';
+
+
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -24,7 +27,7 @@ export class ClientsComponent {
   clientResponse!: CustomResponse;
   public dataSubject = new BehaviorSubject<any>(null);
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService, private toast: NgToastService) {}
 
   ngOnInit(): void {
       this.clientService.clients$.subscribe(response => {
@@ -41,6 +44,8 @@ export class ClientsComponent {
           {...response, data: {clients: [response.data.client, ...this.dataSubject.value.data.clients ]}}
         )
         this.clientResponse = this.dataSubject.value;
+        this.toast.success({ detail: 'Success', summary: 'Client added', position: 'tr', duration: 2500 });
+
       });
       addForm.reset();
     }
@@ -66,19 +71,24 @@ export class ClientsComponent {
             });
     
             this.clientResponse = this.dataSubject.value;
+            this.toast.success({ detail: 'Success', summary: 'Agent updated', position: 'tr', duration: 2500 });
+
           } else {
             console.error('Invalid response or missing client data.');
           }
         },
         error => {
-          console.error('Failed to update client:', error);
+          this.toast.error({ detail: 'Error', summary: 'Something gone wrong', position: 'tr', duration: 3000 });
         }
       );
     }
     
   
   reset(client: Client) {
-    this.clientService.resetPassword$(client.id as number).subscribe();
+    this.clientService.resetPassword$(client.id as number).subscribe(response => {
+      this.toast.info({ detail: 'Info', summary: 'password reset', position: 'tr', duration: 3000 });
+
+    });
   }
 
 
@@ -91,6 +101,8 @@ export class ClientsComponent {
           }
         )
         this.clientResponse = this.dataSubject.value;
+        this.toast.success({ detail: 'Success', summary: 'Client deleted', position: 'tr', duration: 2500 });
+
     })
   }
 
